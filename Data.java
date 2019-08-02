@@ -4,19 +4,19 @@ import java.util.Scanner;
 
 public class Data {
 
-	String data;
-	private static int numeroDeVoos = 0;
+	int data;
+	protected int numeroDeVoos;
 	public Voo[] listaDeVoos = new Voo[4];
 	private Scanner input;
-
-	public Data(String Data) {
-		this.data = Data;
-	}
+	boolean status;
 	
-	public int getNumeroDeVoos() {
-		return numeroDeVoos;
+	public Data(int Data) {
+		this.data = Data;
+		this.numeroDeVoos = 0;
+		this.listaDeVoos = null;
+		this.status =  true;
 	}
-
+		
 	public void adicionaVoo() {
 
 		String nome = null;
@@ -26,12 +26,10 @@ public class Data {
 		String horarioChegada = null;
 		String horarioSaida = null;
 		int codigoVoo = -1;
-		float precoPrimeiraClasse = 0;
-		float precoClasseEconomica = 0;
 
 		input = new Scanner(System.in);
 
-		System.out.println("Entrada de dados");
+		System.out.println("Entre dados para o novo Voo");
 
 		System.out.println("Nome do Voo");
 		nome = input.nextLine();
@@ -51,36 +49,30 @@ public class Data {
 		System.out.println("Horario de saida");
 		horarioSaida =  input.nextLine();
 
-		System.out.println("Código do vôo");
+		System.out.println("Código do Voo");
 		codigoVoo = input.nextInt();
-		
-		System.out.println("Preço Primeira Classe");
-		precoPrimeiraClasse = input.nextFloat();
-		
-		System.out.println("Preço Classe Econômica");
-		precoClasseEconomica = input.nextFloat();
 
-		listaDeVoos[numeroDeVoos] =  new Voo(nome, compania, destino, partida, horarioChegada, horarioSaida, codigoVoo, precoPrimeiraClasse, precoClasseEconomica);
-		Data.numeroDeVoos++;
+		listaDeVoos[numeroDeVoos] =  new Voo(nome, compania, destino, partida, horarioChegada, horarioSaida, codigoVoo);
+		this.numeroDeVoos++;
 	}
 
 	public void removeVoo() {
 		int i;
-		String vooRemovido;
+		int vooRemovido;
 		input = new Scanner(System.in);
 
 		System.out.println("Escolha o voo a ser cancelado");
-		vooRemovido = input.nextLine();
+		vooRemovido = input.nextInt();
 
 		for (i =  0; i < 4; i++) {
-			if(vooRemovido.equals(listaDeVoos[i].getNome())) {
+			if(vooRemovido == listaDeVoos[i].getCodigoVoo()) {
 				listaDeVoos[i] = null;
 				return;
 			}
 		}
 
 		if (i == 3) {
-			System.out.println("Erro! Voo nï¿½o encontrado");
+			//Exception
 		}
 	}
 
@@ -92,12 +84,13 @@ public class Data {
 		}
 		return -1;
 	}
-	
-	public void imprimeVoosDoDia() {
-		for(int i=0; i<4; i++) {
-			Voo vooAtual = listaDeVoos[i];
-			System.out.println("Voo " +vooAtual.toString());
-		}
-	}
 
+	public void imprimeData() {
+		
+	}
+	
+	public boolean getStatus() {
+		return this.status;
+	}
+	
 }

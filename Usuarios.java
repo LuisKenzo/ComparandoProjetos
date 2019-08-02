@@ -1,12 +1,9 @@
 package usuario;
-import usuario.Usuario;
-import usuario.Cliente;
-
+import usuario.*;
+import agenda.*;
 import java.util.Scanner;
 
 import agenda.Agenda;
-import agenda.Data;
-import agenda.Voo;
 
 public class Usuarios {
 	private Usuario[] clientes = new Usuario[1000];
@@ -124,7 +121,7 @@ public class Usuarios {
 		int data = input.nextInt();
 		System.out.println("Possuímos as viagens a seguir para o dia " +data);
 		Data dataEscolhida = agenda.datas[data-1];
-		dataEscolhida.imprimeVoosDoDia();
+		dataEscolhida.imprimeVoosDoDia(); // fazer metodo
 		System.out.println("Digite o código da viagem escolhida: ");
 		int codigo = input.nextInt();
 		int	codigoDoVoo = dataEscolhida.buscaVoo(codigo);
@@ -145,36 +142,14 @@ public class Usuarios {
 				System.out.println("Digite a coluna: ");
 				int coluna = input.nextInt();
 				vooEscolhido.adicionaPoltrona(linha, coluna, classe, getUsuarioID());
-				clientes[usuarioID].adicionaCompras(vooEscolhido, vooEscolhido.buscaPoltrona(linha,coluna,classe));
 			}
 			System.out.println("O valor total da compra é: " +vooEscolhido.calculaValorTotal(passagens, passageirosMenoresDeIdade, classe));
-			System.out.println("Compra efetuada com sucesso!");
+			System.out.println("Para confirmar a compra, digite 1");
+			int compra = input.nextInt();
+			if(compra==1) {
+				System.out.println("Compra efetuada com sucesso!");
+			} else {
+				System.out.println("Compra cancelada");
+			}
 		}
 	}
-	
-	public void imprimeCompras() {
-		clientes[usuarioID].imprimeCompras();
-	}
-	
-	public void cancelaCompra(Agenda agenda) {
-		Scanner input = new Scanner(System.in);
-		imprimeCompras();
-		System.out.println("Digite o código da compra a ser cancelada: ");
-		int codigoCompra = input.nextInt();
-		System.out.println("Confirme a data: ");
-		int data = input.nextInt();
-		System.out.println("Confirme o código do voo: ");
-		int codigoVoo = input.nextInt();
-		System.out.println("Confirme a classe (1-Primeira/2-Economica)");
-		int classe = input.nextInt();
-		System.out.println("Confirme a linha da poltrona: ");
-		int linha = input.nextInt();
-		System.out.println("Confirme a coluna da poltrona: ");
-		int coluna = input.nextInt();
-		Usuario clienteAtual = clientes[usuarioID];
-		Data dataDoVoo = agenda.datas[data];
-		int vooID = dataDoVoo.buscaVoo(codigoVoo);
-		dataDoVoo.listaDeVoos[vooID].removeDaPoltrona(linha, coluna, classe);
-		clienteAtual.apagaCompra(codigoCompra);
-	}
-}

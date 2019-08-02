@@ -18,22 +18,22 @@ public class Agenda {
         //exception
       }
   }
-
+    
   public void setMes(String mes) {
     this.mes = mes;
   }
-
+  
   public String getMes() {
     return mes;
   }
 
   public void imprimeVoos() {
     System.out.println("-------------------------------------------------------");
-    System.out.println("VÃ´os disponÃ­veis para" +getMes());
+    System.out.println("Vôos disponíveis para" +getMes());
     for(int i = 0; i<datas.length; i++) {
-      if(datas[i].getNumeroDeVoos() > 0) {
+      if(datas[i].numeroDeVoos > 0) {
         System.out.println("Dia" +i);
-        datas[i].imprimeVoosDoDia();
+        datas[i].imprimeData();
       } else {
         System.out.println();
       }
